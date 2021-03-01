@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "dxdsrnen_gymgasm",
+    "password": "gymgasm@2021",
+    "database": "dxdsrnen_gymgasm",
+    "host": "103.102.234.241",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "dxdsrnen_gymgasm",
+    "password": "gymgasm@2021",
+    "database": "dxdsrnen_gymgasm",
+    "host": "103.102.234.241",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "dxdsrnen_gymgasm",
+    "password": "gymgasm@2021",
+    "database": "dxdsrnen_gymgasm",
+    "host": "103.102.234.241",
+    "dialect": "mysql"
+  }
+}
