@@ -3,7 +3,7 @@ const createError = require("http-errors");
 const { authSchema } = require("../validation");
 const { signAccessToken } = require("../../utils/jwt-helper");
 const bcrypt = require("bcrypt");
-  
+
 const registerGym = async (req, res, next) => {
   try {
     // validated body
@@ -34,7 +34,7 @@ const registerGym = async (req, res, next) => {
     const result = await models.Gym.create(validate);
 
     // generate accesstoken
-    const accessToken = await signAccessToken(result.gymId);
+    const accessToken = await signAccessToken(JSON.stringify(result.id));
 
     res.status(200).json({ accessToken });
   } catch (error) {
@@ -59,7 +59,7 @@ const login = async (req, res, next) => {
       throw createError.Unauthorized("invalid username/password");
 
     // generate accesstoken
-    const accessToken = await signAccessToken(gymId);
+    const accessToken = await signAccessToken(JSON.stringify(gym.id));
 
     res.status(200).json({ accessToken });
   } catch (error) {

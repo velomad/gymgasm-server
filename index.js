@@ -11,7 +11,7 @@ app.use(urlencoded({ extended: true }));
 
 // GYM APP related routes
 app.use("/api/v1/gym/auth", require("./src/Gym-app/routes/routes.auth"));
-app.use("/api/v1/gym", require("./src/Gym-app/routes/routes.gymMember"));
+app.use("/api/v1/gym/member", require("./src/Gym-app/routes/routes.gymMember"));
 app.use("/api/v1", require("./src/universal-api/routes/routes.isTaken"));
 
 // error handling middleware
