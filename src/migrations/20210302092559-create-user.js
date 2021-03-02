@@ -14,24 +14,12 @@ module.exports = {
         allowNull: false,
       },
       username: {
-        type: Sequelize.STRING(30),
-        unique: true,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
-      phoneNumber: {
-        type: Sequelize.STRING(13),
-        unique: true,
-        allowNull: false,
-      },
-      name: {
+      password: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      profileImage: {
-        type: Sequelize.STRING,
-      },
-      bio: {
-        type: Sequelize.STRING(70),
       },
       createdAt: {
         allowNull: false,

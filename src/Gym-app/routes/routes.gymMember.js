@@ -6,6 +6,5 @@ const { verifyAccessToken } = require("../../utils/jwt-helper");
 router.get("/all", verifyAccessToken, controller.allMembers);
 
 // POST
-// router.post("/addmember", controller.addMember);
 
 module.exports = router;

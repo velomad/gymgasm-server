@@ -19,24 +19,16 @@ module.exports = (sequelize, DataTypes) => {
         references: { model: "Gyms", foreignKey: "id" },
       },
       username: {
-        type: DataTypes.STRING(30),
-        unique: true,
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
-      phoneNumber: {
-        type: DataTypes.STRING(13),
-        unique: true,
+      username: {
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
-      name: {
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      profileImage: {
-        type: DataTypes.STRING,
-      },
-      bio: {
-        type: DataTypes.STRING(70),
       },
     },
     {
