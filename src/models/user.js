@@ -1,14 +1,14 @@
 "use strict";
 const { Model } = require("sequelize");
+const bcrypt = require("bcrypt");
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      User.hasOne(models.UserDetail, {
+        as: "details",
+        foreignKey: "userId",
+      });
     }
   }
   User.init(
@@ -16,7 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       gymId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: "Gyms", foreignKey: "id" },
+        references: { model: "Gyms", key: "id" },
+      },
+      phoneNumber: {
+        type: DataTypes.STRING(13),
+        allowNull: false,
       },
       username: {
         type: DataTypes.STRING(50),
@@ -37,5 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
+
+  // hash the password before saving into DB
+  User.beforeCreate(async (user) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    user.password = hashedPassword;
+  });
+
   return User;
 };

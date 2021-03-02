@@ -34,7 +34,10 @@ const registerGym = async (req, res, next) => {
     const result = await models.Gym.create(validate);
 
     // generate accesstoken
-    const accessToken = await signAccessToken(JSON.stringify(result.id));
+    const accessToken = await signAccessToken(
+      JSON.stringify(result.id),
+      process.env.GYM_ACCESS_TOKEN_SECRET
+    );
 
     res.status(200).json({ accessToken });
   } catch (error) {
@@ -46,20 +49,23 @@ const registerGym = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { gymId, password } = req.body;
   try {
-    const gym = await models.Gym.findOne({ where: { gymId } });
+    const result = await models.Gym.findOne({ where: { gymId } });
 
-    if (!gym) {
+    if (!result) {
       throw createError.Unauthorized("invalid username/password");
     }
 
     // compare DB pass with userpass
-    const comparedPass = await bcrypt.compare(password, gym.password);
+    const comparedPass = await bcrypt.compare(password, result.password);
 
     if (!comparedPass)
       throw createError.Unauthorized("invalid username/password");
 
     // generate accesstoken
-    const accessToken = await signAccessToken(JSON.stringify(gym.id));
+    const accessToken = await signAccessToken(
+      JSON.stringify(result.id),
+      process.env.GYM_ACCESS_TOKEN_SECRET
+    );
 
     res.status(200).json({ accessToken });
   } catch (error) {

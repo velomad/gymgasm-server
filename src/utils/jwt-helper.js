@@ -2,10 +2,10 @@ const JWT = require("jsonwebtoken");
 const createError = require("http-errors");
 
 module.exports = {
-  signAccessToken: (userId) => {
+  signAccessToken: (userId, secretKey) => {
     return new Promise((resolve, reject) => {
       const payload = {};
-      const secret = process.env.JWTSECRET;
+      const secret = secretKey;
       const options = {
         expiresIn: "1y",
         issuer: "test.com",
@@ -18,11 +18,26 @@ module.exports = {
     });
   },
 
-  verifyAccessToken: (req, res, next) => {
+  verifyGymAccessToken: (req, res, next) => {
     if (!req.headers["authorization"]) return next(createError.Unauthorized());
     const authHeader = req.headers["authorization"];
     const token = authHeader.split(" ")[1];
-    JWT.verify(token, process.env.JWTSECRET, (err, payload) => {
+    JWT.verify(token, process.env.GYM_ACCESS_TOKEN_SECRET, (err, payload) => {
+      if (err) {
+        const message =
+          err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
+        return next(createError.Unauthorized(message));
+      }
+      req.payload = payload;
+      next();
+    });
+  },
+
+  verifyUserAccessToken: (req, res, next) => {
+    if (!req.headers["authorization"]) return next(createError.Unauthorized());
+    const authHeader = req.headers["authorization"];
+    const token = authHeader.split(" ")[1];
+    JWT.verify(token, process.env.USER_ACCESS_TOKEN_SECRET, (err, payload) => {
       if (err) {
         const message =
           err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;

@@ -14,6 +14,10 @@ app.use("/api/v1/gym/auth", require("./src/Gym-app/routes/routes.auth"));
 app.use("/api/v1/gym/member", require("./src/Gym-app/routes/routes.gymMember"));
 app.use("/api/v1", require("./src/universal-api/routes/routes.isTaken"));
 
+// USER APP
+app.use("/api/v1/user/auth", require("./src/User-app/routes/routes.auth"));
+app.use("/api/v1/user/profile", require("./src/User-app/routes/routes.profile"));
+
 // error handling middleware
 
 app.use(async (req, res, next) => {
