@@ -4,7 +4,7 @@ const models = require("../../models");
 
 const getMonthAttendance = async (req, res, next) => {
   const month = req.body.month;
-  const user = req.body.id;
+  const userId = req.body.id;
   const gymId = req.payload.aud;
   try {
     const result = await models.Attendance.findAll({
@@ -16,8 +16,8 @@ const getMonthAttendance = async (req, res, next) => {
             month
           ),
         ],
-        gymId: gymId,
-        userId: user,
+        gymId,
+        userId,
       },
     });
     res

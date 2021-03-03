@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      gymId: {
+      gymTag: {
         type: Sequelize.STRING,
         type: Sequelize.STRING(20),
         allowNull: false,

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Gym.init(
     {
-      gymId: {
+      gymTag: {
         type: DataTypes.STRING(20),
         allowNull: false,
         unique: true,

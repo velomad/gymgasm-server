@@ -9,9 +9,9 @@ const registerGym = async (req, res, next) => {
     // validated body
     const validate = await authSchema.validateAsync(req.body);
 
-    // if gymID already exist
-    const gymIdExist = await models.Gym.findOne({
-      where: { gymId: validate.gymId },
+    // if gymTag already exist
+    const gymTagExist = await models.Gym.findOne({
+      where: { gymTag: validate.gymTag },
     });
 
     // if phone number already exist
@@ -20,14 +20,14 @@ const registerGym = async (req, res, next) => {
     });
 
     // error responses
-    if (phoneNumberExist && gymIdExist) {
+    if (phoneNumberExist && gymTagExist) {
       throw createError.Conflict(
-        `${validate.phoneNumber} and ${validate.gymId} already exist.`
+        `${validate.phoneNumber} and ${validate.gymTag} already exist.`
       );
     } else if (phoneNumberExist) {
       throw createError.Conflict(`${validate.phoneNumber} already exist.`);
-    } else if (gymIdExist) {
-      throw createError.Conflict(`${validate.gymId} already exist.`);
+    } else if (gymTagExist) {
+      throw createError.Conflict(`${validate.gymTag} already exist.`);
     }
 
     // create gym
@@ -47,9 +47,9 @@ const registerGym = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
-  const { gymId, password } = req.body;
+  const { gymTag, password } = req.body;
   try {
-    const result = await models.Gym.findOne({ where: { gymId } });
+    const result = await models.Gym.findOne({ where: { gymTag } });
 
     if (!result) {
       throw createError.Unauthorized("invalid username/password");

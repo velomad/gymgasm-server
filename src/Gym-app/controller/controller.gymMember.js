@@ -2,7 +2,7 @@ const Op = require("sequelize").Op;
 const models = require("../../models");
 
 const allMembers = async (req, res) => {
-  const gymID = req.payload.aud;
+  const gymId = req.payload.aud;
   try {
     const result = await models.User.findAll({
       include: [
@@ -14,7 +14,7 @@ const allMembers = async (req, res) => {
       raw: false,
       attributes: ["username", "createdAt"],
       where: {
-        gymId: gymID,
+        gymId,
       },
     });
     res.status(200).json({ results: result.length, members: result });
@@ -24,8 +24,8 @@ const allMembers = async (req, res) => {
 };
 
 const member = async (req, res, next) => {
-  const gymUsername = req.payload.aud;
-  const gymID = req.params.id;
+  const gymId = req.payload.aud;
+  const userId = req.params.id;
   try {
     const result = await models.User.findOne({
       include: [
@@ -38,8 +38,8 @@ const member = async (req, res, next) => {
       attributes: ["username", "createdAt"],
       where: {
         [Op.and]: {
-          gymId: gymUsername,
-          id: gymID,
+          gymId: gymId,
+          id: userId,
         },
       },
     });

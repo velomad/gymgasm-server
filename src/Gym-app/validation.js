@@ -1,7 +1,7 @@
 const joi = require("@hapi/joi");
 
 const authSchema = joi.object({
-  gymId: joi.string().required().min(2),
+  gymTag: joi.string().required().min(2),
   name: joi.string().required().min(2),
   phoneNumber: joi
     .string()
