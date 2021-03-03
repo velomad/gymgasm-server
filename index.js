@@ -9,10 +9,13 @@ require("dotenv").config();
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
-// GYM APP related routes
+// unviersal routes
+app.use("/api/v1", require("./src/universal-api/routes/routes.isTaken"));
+
+// GYM APP 
 app.use("/api/v1/gym/auth", require("./src/Gym-app/routes/routes.auth"));
 app.use("/api/v1/gym/member", require("./src/Gym-app/routes/routes.gymMember"));
-app.use("/api/v1", require("./src/universal-api/routes/routes.isTaken"));
+app.use("/api/v1/gym/attendance", require("./src/Gym-app/routes/routes.attendance"));
 
 // USER APP
 app.use("/api/v1/user/auth", require("./src/User-app/routes/routes.auth"));
