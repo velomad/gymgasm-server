@@ -13,4 +13,8 @@ const profileSchema = joi.object({
   bio: joi.string().max(70),
 });
 
-module.exports = { authSchema, profileSchema };
+const photoPostSchema = joi.object({
+  caption: joi.string().max(70),
+});
+
+module.exports = { authSchema, profileSchema, photoPostSchema };
